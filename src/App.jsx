@@ -1,11 +1,18 @@
 import React from 'react'
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import HomePage from './page/Homepage/HomePage'
+import Shop from './page/Shop/Shop'
 
 
-export default function App() {
+const App = () => {
   return (
-    <div>
-      <HomePage />
-    </div>
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/" component={HomePage} />
+        <Route exact path="/shop" component={Shop} />
+      </Switch>
+    </BrowserRouter>
   )
 }
+
+export default App;
