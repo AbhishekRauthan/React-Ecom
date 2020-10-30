@@ -6,6 +6,7 @@ import HomePage from './page/Homepage/HomePage'
 import Shop from './page/Shop/Shop'
 import SignInAndSignUp from './page/SignInAndSignUp/SignInAndSignUp'
 
+import './App.scss';
 
 class App extends Component {
   constructor() {
