@@ -15,6 +15,13 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
+export const createUserProfileDocument = async (userAuth, additionalData) => {
+  if (!userAuth) {
+    return
+  }
+  console.log(fireStore.doc('users/1212fsdfgrea'))
+}
+
 export const auth = firebase.auth();
 export const fireStore = firebase.firestore();
 
