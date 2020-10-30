@@ -45,7 +45,7 @@ const SignIn = () => {
           handleChange={changeHandler}
         />
         <CustomButton type="submit" > Sign In </CustomButton>
-        <CustomButton onClick={signInWithGoogle} > Sign In with Google </CustomButton>
+        <CustomButton onClick={signInWithGoogle} isGoogleSignIn> Sign In with Google </CustomButton>
       </form>
     </div>
   )

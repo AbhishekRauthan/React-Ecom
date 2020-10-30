@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { Component } from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import Header from './components/Header/Header'
 import { auth } from './firebase/firebase.utils'
@@ -7,27 +7,41 @@ import Shop from './page/Shop/Shop'
 import SignInAndSignUp from './page/SignInAndSignUp/SignInAndSignUp'
 
 
-const App = () => {
-  const [currentUser, setCurrentUser] = useState();
+class App extends Component {
+  constructor() {
+    super();
 
-  useEffect(() => {
-    let unSubscribeFromAuth = auth.onAuthStateChanged(user => {
-      setCurrentUser(user);
+    this.state = {
+      currentUser: null
+    }
+  }
 
-      console.log(currentUser);
+  unsubscribeFromAuth = null;
+
+  componentDidMount() {
+    this.unsubscribeFromAuth = auth.onAuthStateChanged(user => {
+      this.setState({ currentUser: user })
+
+      console.log(user);
     })
-  }, [currentUser])
+  }
 
-  return (
-    <BrowserRouter>
-      <Header currentUser={currentUser} />
-      <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route exact path="/shop" component={Shop} />
-        <Route exact path="/signin" component={SignInAndSignUp} />
-      </Switch>
-    </BrowserRouter>
-  )
+  componentWillUnmount() {
+    this.unsubscribeFromAuth();
+  }
+
+  render() {
+    return (
+      <BrowserRouter>
+        <Header currentUser={this.state.currentUser} />
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+          <Route exact path="/shop" component={Shop} />
+          <Route exact path="/signin" component={SignInAndSignUp} />
+        </Switch>
+      </BrowserRouter>
+    )
+  }
 }
 
 export default App;
