@@ -36,7 +36,7 @@ class SignUp extends Component {
         confirmPassword: "",
       })
     } catch (e) {
-      console.log("Error Occured ");
+      console.log("Error Occured");
     }
   }
 
@@ -56,7 +56,7 @@ class SignUp extends Component {
           <FormInput
             type="text"
             name="displayName"
-            value={displayName}
+            value={this.state.displayName}
             label="Display Name"
             handleChange={this.handleChange}
             required
@@ -64,7 +64,7 @@ class SignUp extends Component {
           <FormInput
             type="email"
             name="email"
-            value={email}
+            value={this.state.email}
             label="Email"
             handleChange={this.handleChange}
             required
@@ -72,7 +72,7 @@ class SignUp extends Component {
           <FormInput
             type="password"
             name="password"
-            value={password}
+            value={this.state.password}
             label="Password"
             handleChange={this.handleChange}
             required
@@ -80,7 +80,7 @@ class SignUp extends Component {
           <FormInput
             type="password"
             name="confirmPassword"
-            value={confirmPassword}
+            value={this.state.confirmPassword}
             label="Confirm Password"
             handleChange={this.handleChange}
             required
