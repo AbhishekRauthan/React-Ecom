@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { signInWithGoogle } from '../../firebase/firebase.utils';
+import { auth, signInWithGoogle } from '../../firebase/firebase.utils';
 import CustomButton from '../CustomButton/CustomButton';
 import FormInput from '../FormInput/FormInput';
 
@@ -9,10 +9,18 @@ import './SignIn.scss';
 const SignIn = () => {
   const [state, setState] = useState({ email: '', password: '' })
 
-  const submitHandler = event => {
+  const submitHandler = async event => {
     event.preventDefault();
-
-    setState({ email: '', password: '' })
+    const { email, password } = state;
+    try {
+      await auth.signInWithEmailAndPassword({
+        email,
+        password
+      })
+      setState({ email: '', password: '' })
+    } catch (error) {
+      console.log("Error in Sign in");
+    }
   }
 
   const changeHandler = event => {
