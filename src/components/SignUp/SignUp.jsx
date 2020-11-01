@@ -15,6 +15,36 @@ class SignUp extends Component {
       confirmPassword: "",
     }
   }
+  handleSubmit = async event => {
+    event.preventDefault();
+
+    const { displayName, confirmPassword, email, password } = this.state;
+
+    if (password !== confirmPassword) {
+      alert("Passwords do not match!");
+      return;
+    }
+
+    try {
+      const { user } = await auth.createUserWithEmailAndPassword(email, password);
+      await createUserProfileDocument(user, { displayName });
+
+      this.setState({
+        displayName: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+      })
+    } catch (e) {
+      console.log("Error Occured ");
+    }
+  }
+
+  handleChange = event => {
+    const { name, value } = event.target;
+
+    this.setState({ [name]: value });
+  }
 
   render() {
     return (
@@ -22,13 +52,13 @@ class SignUp extends Component {
         <h2 className="title">I do not have an account</h2>
         <span>Sign Up with your email and password</span>
 
-        <form className="sign-up-form">
+        <form className="sign-up-form" onSubmit={this.handleSubmit}>
           <FormInput
             type="text"
             name="displayName"
             value={displayName}
             label="Display Name"
-            onChange={this.handleChange}
+            handleChange={this.handleChange}
             required
           />
           <FormInput
@@ -36,7 +66,7 @@ class SignUp extends Component {
             name="email"
             value={email}
             label="Email"
-            onChange={this.handleChange}
+            handleChange={this.handleChange}
             required
           />
           <FormInput
@@ -44,7 +74,7 @@ class SignUp extends Component {
             name="password"
             value={password}
             label="Password"
-            onChange={this.handleChange}
+            handleChange={this.handleChange}
             required
           />
           <FormInput
@@ -52,7 +82,7 @@ class SignUp extends Component {
             name="confirmPassword"
             value={confirmPassword}
             label="Confirm Password"
-            onChange={this.handleChange}
+            handleChange={this.handleChange}
             required
           />
           <CustomButton type="submit" >SIGN UP</CustomButton>
